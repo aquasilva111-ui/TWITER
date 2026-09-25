@@ -22,7 +22,7 @@
         <div class="col col-shrink">
           <q-btn
             @click="addNewQweet"
-            :disable="!newQweetContent"
+            :disable="!databaseAvailable || !newQweetContent.trim()"
             class="q-mb-lg"
             color="primary"
             label="Qweet"
@@ -39,6 +39,9 @@
         size="10px"
       />
 
+      <div v-if="!databaseAvailable" class="q-pa-md text-grey-8" role="status">
+        O feed está disponível para visualização. As publicações estarão disponíveis quando o serviço de dados estiver conectado.
+      </div>
       <q-list separator>
         <transition-group
           appear
@@ -114,6 +117,7 @@ export default {
   data() {
     return {
       newQweetContent: '',
+      databaseAvailable: Boolean(db),
       qweets: [
         // {
         //   id: 'ID1',
@@ -171,6 +175,7 @@ export default {
     }
   },
   mounted() {
+    if (!db) return
     db.collection('qweets').orderBy('date').onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         let qweetChange = change.doc.data()

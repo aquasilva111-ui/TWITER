@@ -1,0 +1,5 @@
+node_modules/
+.quasar/
+dist/
+.vercel/
+.env*

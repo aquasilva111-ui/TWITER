@@ -1,0 +1,6 @@
+{
+  "framework": null,
+  "installCommand": "cd qwitter-main && ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm ci --legacy-peer-deps",
+  "buildCommand": "cd qwitter-main && npm run build",
+  "outputDirectory": "qwitter-main/dist/spa"
+}
